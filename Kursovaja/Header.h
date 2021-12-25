@@ -2,12 +2,15 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <functional>
+using namespace std;
 
 struct local_area //локальные области
 {
     double h_x, h_y, h_z; // Длины сторон
     double lambda, sigma, hi; // lambda и gamma в области
     int mas[8]; // Номера узлов
+    double *x, *y, *z;
 };
 
 struct cross // Координаты узлов
@@ -73,3 +76,25 @@ void mult_matr_by_vect(int size, double** matrix, double* vector, double* result
 double get_u(cross point, initial_data form); // Получение значения в произвольной точке
 double scalar(int size, double* v1, double* v2); // Скалярное умножение векторов
 void LOC(initial_data* form); // Локально-Оптимальная Схема
+
+
+//std::function<double(double, double, double, int, int, double*, double*, double*)> Mij;
+
+double Integrate(function<double(double, double, double, int, int, double*, double*, double*)> f, int i, int j, double* x, double* y, double* z);
+
+int mu(int index);
+
+int v(int index);
+
+int nu(int index);
+
+double W(int index, double alpha);
+
+double d_phi(int index, int what, double ksi, double etta, double tetha);
+
+double prime_by_var(int what, double* cross, double ksi, double etta, double tetha);
+
+double phi(int index, double ksi, double etta, double tetha);
+
+double det_Jacobian(double* x, double* y, double* z, double ksi, double etta, double tetha);
+
